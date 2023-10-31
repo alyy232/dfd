@@ -1,0 +1,44 @@
+All files in this repository fall under the license specified in LICENSE
+Right now, the project is licensed under the AGPL but we're still working
+on a different license and plan to relicense the project at a later date.
+
+You will need:
+
+  - GCC 4.6 or newer
+  - Boost 1.48 or newer
+  - OpenSSL 0.9 or newer
+  * for PostgreSQL support:
+    - cppdb (with postgres enabled)
+  * for BerkeleyDB support:
+    - berkdb 5.1 or newer
+    - protobuf
+
+Ubuntu users:
+
+  $ sudo apt-get install build-essential autoconf libtool libdb++-dev protobuf pkg-config libboost-all-dev
+  $ autoreconf -i
+
+Build cppdb using the instructions on their site.
+
+  $ svn co http://cppcms.svn.sourceforge.net/svnroot/cppcms/cppdb/trunk cppdb-trunk
+  $ cd cppdb-trunk
+  $ mkdir build
+  $ cd build
+  $ cmake -DCMAKE_INSTALL_PREFIX=/home/smf/libbitcoin/usr/ ..  -DPQ_BACKEND_INTERNAL=1
+  $ make
+  # make install
+
+Gentoo users: just use the ebuild from the bitcoin overlay.
+
+Edit the Makefile CFLAGS and LIBS variables to get the project to compile.
+Import the database too.
+
+  $ psql bitcoin < bitcoin.sql
+
+A good place to start is to run:
+
+  $ make net
+  $ ./bin/tests/nettest
+
+This is still a work in progress.
+
